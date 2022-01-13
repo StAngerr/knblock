@@ -1,8 +1,9 @@
-<div>
-  <ul>
-    <li *ngFor="let skill of skills" (click)="openSkill(skill.id)">
-      <p>{{skill.name}}</p>
-      <p>{{skill.desc}}</p>
-    </li>
-  </ul>
-</div>
+<mat-card [class]="'single-card'" *ngFor="let skill of skills$ | async" >
+  <mat-card-title>{{skill.title}}</mat-card-title>
+  <mat-card-subtitle>Rating 3.3</mat-card-subtitle>
+  <mat-card-content>{{skill.description}}</mat-card-content>
+  <mat-card-actions>
+    <button color="primary" mat-button (click)="openSkill(skill.id)">Open</button>
+  </mat-card-actions>
+</mat-card>
+
