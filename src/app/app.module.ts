@@ -20,6 +20,11 @@ import { EffectsModule } from '@ngrx/effects';
 import { SkillsEffects } from './effects/skills.effects';
 import { environment } from '../environments/environment';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { CreateSkillFormComponent } from './components/skill-list/create-skill-form/create-skill-form.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +33,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     SkillPage,
     WelcomePage,
     LayoutComponent,
+    CreateSkillFormComponent,
   ],
   imports: [
     CommonModule,
@@ -42,6 +48,10 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot([SkillsEffects]),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
+    MatAutocompleteModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    MatInputModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

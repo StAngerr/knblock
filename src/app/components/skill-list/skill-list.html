@@ -1,9 +1,35 @@
-<mat-card [class]="'single-card'" *ngFor="let skill of skills$ | async" >
-  <mat-card-title>{{skill.title}}</mat-card-title>
-  <mat-card-subtitle>Rating 3.3</mat-card-subtitle>
-  <mat-card-content>{{skill.description}}</mat-card-content>
-  <mat-card-actions>
-    <button color="primary" mat-button (click)="openSkill(skill.id)">Open</button>
-  </mat-card-actions>
-</mat-card>
+<app-create-skill-form (cancelCreate)="isCreateSkill = false" *ngIf="isCreateSkill" (onCreate)="handleCreateSkill($event)"></app-create-skill-form>
+
+<div class="controls-panel" *ngIf="!isCreateSkill && !isEditSkill">
+  <button mat-flat-button color="primary" (click)="handleCreate()" >Create new</button>
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Search skill</mat-label>
+    <input type="text"
+           placeholder="Search"
+           aria-label="Number"
+           matInput
+           [formControl]="myControl"
+           [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let option of ['qwe', 'qwe']" [value]="option">
+        {{option}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</div>
+<div class="cards-container" *ngIf="!isCreateSkill && !isEditSkill">
+  <mat-card [class]="'single-card'" *ngFor="let skill of skills$ | async" >
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image">
+        <img src="https://thumbs.dreamstime.com/b/design-can-be-used-as-logo-icon-as-complement-to-design-gear-computer-logo-icon-design-125299183.jpg" alt="skill-logo">
+      </div>
+      <mat-card-title>{{skill.title}}</mat-card-title>
+      <mat-card-subtitle>Rating 3.3</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>{{skill.description}}</mat-card-content>
+    <mat-card-actions>
+      <button color="primary" mat-button (click)="openSkill(skill.id)">Open</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
 

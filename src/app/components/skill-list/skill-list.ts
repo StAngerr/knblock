@@ -3,16 +3,25 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { AppState } from '../../state/app.state';
 import { select, Store } from '@ngrx/store';
-import { GetAllSkillsAction } from '../../actions/skillsActionsEnum';
-import { selectUsers } from '../../selectors/skills.selectors';
+import {
+  CreateNewSkillAction,
+  GetAllSkillsAction,
+} from '../../actions/skillsActionsEnum';
+import { selectSkills } from '../../selectors/skills.selectors';
 import { Observable } from 'rxjs';
 import { Skill } from '../../types/skill';
+import { FormControl } from '@angular/forms';
 
 @Component({
   templateUrl: './skill-list.html',
+  styleUrls: ['./skill-list.scss'],
 })
 export class SkillList implements OnInit {
-  skills$: Observable<Skill[]> = this.store.pipe(select(selectUsers));
+  skills$: Observable<Skill[]> = this.store.pipe(select(selectSkills));
+  auto: string = '';
+  myControl = new FormControl();
+  isCreateSkill = false;
+  isEditSkill = false;
 
   constructor(
     private router: Router,
@@ -26,5 +35,14 @@ export class SkillList implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(new GetAllSkillsAction());
+  }
+
+  handleCreate(): void {
+    this.isCreateSkill = true;
+    this.isEditSkill = false;
+  }
+
+  handleCreateSkill(newSkill: { title: string; description: string }) {
+    this.store.dispatch(new CreateNewSkillAction(newSkill));
   }
 }
