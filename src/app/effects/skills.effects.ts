@@ -4,11 +4,10 @@ import { SkillService } from '../services/skill.service';
 import {
   CreateNewSkillAction,
   SkillsActionsEnum,
-} from '../actions/skillsActionsEnum';
+} from '../actions/skillsActions';
 import { catchError, EMPTY, map, mergeMap } from 'rxjs';
 import { AppState } from '../state/app.state';
 import { Store } from '@ngrx/store';
-import { selectSkills } from '../selectors/skills.selectors';
 
 @Injectable()
 export class SkillsEffects {

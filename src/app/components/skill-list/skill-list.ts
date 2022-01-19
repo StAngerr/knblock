@@ -6,7 +6,7 @@ import { select, Store } from '@ngrx/store';
 import {
   CreateNewSkillAction,
   GetAllSkillsAction,
-} from '../../actions/skillsActionsEnum';
+} from '../../actions/skillsActions';
 import { selectSkills } from '../../selectors/skills.selectors';
 import { Observable } from 'rxjs';
 import { Skill } from '../../types/skill';

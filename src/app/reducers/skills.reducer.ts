@@ -1,5 +1,5 @@
 import { initialSkillsState } from '../state/skills.state';
-import { SkillsActions, SkillsActionsEnum } from '../actions/skillsActionsEnum';
+import { SkillsActions, SkillsActionsEnum } from '../actions/skillsActions';
 
 export const skillsReducer = (
   state = initialSkillsState,

@@ -1,0 +1,15 @@
+<div class="login-container">
+  <form class="login-form">
+    <h3 class="form-header">knBlock</h3>
+    <mat-form-field>
+      <input [formControl]="email" type="email" matInput placeholder="email" >
+    </mat-form-field>
+    <mat-form-field>
+      <input [formControl]="password" type="password" matInput placeholder="Password">
+    </mat-form-field>
+
+    <div class="controls">
+      <button type="button" [disabled]="!email || !password" mat-flat-button color="primary" (click)="onLogin()">Login</button>
+    </div>
+  </form>
+</div>

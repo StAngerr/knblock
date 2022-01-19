@@ -1,0 +1,22 @@
+.login-container {
+  width: 40%;
+  margin: 0 auto;
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  left: 0;
+  right: 0;
+  padding: 25px;
+  background: #fafafa;
+  border-radius: 5px;
+  box-shadow: 1px 1px 6px 0px #C4C4C4;
+
+  .login-form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form-header {
+    text-align: center;
+  }
+}
