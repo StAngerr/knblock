@@ -24,11 +24,23 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {}
 
   public onLogin() {
-    this.authService
-      .login(this.email.value, this.password.value)
-      .subscribe((res) => console.log(res));
+    this.authService.login(this.email.value, this.password.value).subscribe(
+      (res) => console.log(res),
+      (ee) => {
+        debugger;
+      }
+    );
     console.log(this.email.value, this.password.value);
     this.store.dispatch(new SuccessLoginAction());
     this.router.navigate(['/skills']);
+  }
+
+  public onLogout() {
+    this.authService.logout().subscribe(
+      (res) => console.log(res),
+      (ee) => {
+        debugger;
+      }
+    );
   }
 }

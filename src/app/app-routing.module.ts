@@ -4,9 +4,11 @@ import { SkillPage } from './components/skill-page/skill-page';
 import { SkillList } from './components/skill-list/skill-list';
 import { WelcomePage } from './components/welcome-page/welcome-page';
 import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/login/register/register.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
+  { path: 'signup', component: RegisterComponent },
   { path: 'skill-list', component: SkillList },
   { path: 'skill/:id', component: SkillPage },
   { path: '', component: WelcomePage },

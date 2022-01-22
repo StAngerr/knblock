@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { loginUrl } from '../constants/api-urls';
+import { loginUrl, logoutUrl, sighupUrl } from '../constants/api-urls';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +12,24 @@ export class AuthService {
     return this.http.post(loginUrl(), {
       email,
       password,
+    });
+  }
+
+  public logout() {
+    return this.http.get(logoutUrl());
+  }
+
+  public signup(
+    email: string,
+    password: string,
+    firstName: string = '',
+    lastName: string = ''
+  ) {
+    return this.http.post(sighupUrl(), {
+      email,
+      password,
+      firstName,
+      lastName,
     });
   }
 }

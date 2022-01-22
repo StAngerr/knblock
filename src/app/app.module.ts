@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
 import { SkillPage } from './components/skill-page/skill-page';
 import { RouterModule } from '@angular/router';
 import { WelcomePage } from './components/welcome-page/welcome-page';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutComponent } from './components/layout/layout.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -26,6 +26,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { CreateSkillFormComponent } from './components/skill-list/create-skill-form/create-skill-form.component';
 import { LoginComponent } from './components/login/login.component';
+import { MainInterceptor } from './interceptors/MainInterceptor';
+import { RestorePasswordComponent } from './components/login/restore-password/restore-password.component';
+import { RegisterComponent } from './components/login/register/register.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +39,8 @@ import { LoginComponent } from './components/login/login.component';
     LayoutComponent,
     CreateSkillFormComponent,
     LoginComponent,
+    RegisterComponent,
+    RestorePasswordComponent,
   ],
   imports: [
     CommonModule,
@@ -55,7 +60,9 @@ import { LoginComponent } from './components/login/login.component';
     ReactiveFormsModule,
     MatInputModule,
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: MainInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

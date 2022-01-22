@@ -1,0 +1,36 @@
+<div class="signup-container">
+  <form class="signup-form">
+    <h3 class="form-header">knBlock</h3>
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input [formControl]="email"  matInput type="email" required>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Password</mat-label>
+      <input [formControl]="password"  matInput type="password" required>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Confirm Password</mat-label>
+      <input [formControl]="confirmPassword"  matInput type="password" required>
+    </mat-form-field>
+
+    <hr/>
+
+    <mat-form-field>
+      <mat-label>First Name</mat-label>
+      <input [formControl]="firstName" matInput type="text">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Last Name</mat-label>
+      <input [formControl]="lastName" matInput type="text">
+    </mat-form-field>
+
+    <p *ngIf="!isFormValid">Form invalid</p>
+
+    <button mat-flat-button type="button" (click)="handleCreateUser()" color="primary" [disabled]="!email.value || !password.value">Create
+      account
+    </button>
+  </form>
+</div>
