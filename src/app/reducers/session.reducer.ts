@@ -1,12 +1,12 @@
 import { initialSessionState, SessionState } from '../state/session.state';
-import { LoginActions, LoginActionsEnum } from '../actions/loginActions';
+import { SessionActions, SessionActionsEnum } from '../actions/sessionActions';
 
 export const sessionReducer = (
   state: SessionState = initialSessionState,
-  action: LoginActions
+  action: SessionActions
 ) => {
   switch (action.type) {
-    case LoginActionsEnum.successLogin: {
+    case SessionActionsEnum.successLogin: {
       return {
         isAuthenticated: true,
       };

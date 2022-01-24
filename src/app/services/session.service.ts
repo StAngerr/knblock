@@ -1,11 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { loginUrl, logoutUrl, sighupUrl } from '../constants/api-urls';
+import {
+  authStatusCheckUrl,
+  loginUrl,
+  logoutUrl,
+  sighupUrl,
+} from '../constants/api-urls';
+import { Observable } from 'rxjs';
+import { User } from '../types/user';
+import { AbstractControl, ValidationErrors } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService {
+export class SessionService {
   constructor(private http: HttpClient) {}
 
   public login(email: string, password: string) {
@@ -31,5 +39,17 @@ export class AuthService {
       firstName,
       lastName,
     });
+  }
+
+  public authStatusCheck(): Observable<User> {
+    return this.http.get<User>(authStatusCheckUrl());
+  }
+
+  public static passwordMatchValidator(
+    g: AbstractControl
+  ): ValidationErrors | null {
+    return g.get('password')!.value === g.get('confirmPassword')!.value
+      ? null
+      : { mismatch: true };
   }
 }

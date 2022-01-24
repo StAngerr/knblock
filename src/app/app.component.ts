@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AppState } from './state/app.state';
-import { select, State } from '@ngrx/store';
+import { select, State, Store } from '@ngrx/store';
+import { AuthStatusCheck } from './actions/sessionActions';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,8 @@ export class AppComponent {
   title = 'knblock';
   isAuthenticated: boolean = false;
 
-  constructor(private state: State<AppState>) {
+  constructor(private state: State<AppState>, private store: Store<AppState>) {
+    store.dispatch(new AuthStatusCheck());
     state
       .pipe(select((s) => s.session.isAuthenticated))
       .subscribe((value) => (this.isAuthenticated = value));

@@ -6,3 +6,4 @@ export const skillByIdUrl = (id: string) => `${host}/skills/${id}`;
 export const loginUrl = () => `${host}/auth/login`;
 export const logoutUrl = () => `${host}/auth/logout`;
 export const sighupUrl = () => `${host}/auth/register`;
+export const authStatusCheckUrl = () => `${host}/auth/status`;

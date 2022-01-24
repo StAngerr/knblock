@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AppState } from '../../state/app.state';
 import { Store } from '@ngrx/store';
-import { SuccessLoginAction } from '../../actions/loginActions';
-import { AuthService } from '../../services/auth.service';
+import { SuccessLoginAction } from '../../actions/sessionActions';
+import { SessionService } from '../../services/session.service';
 
 @Component({
   selector: 'app-login',
@@ -12,27 +12,32 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  email: FormControl = new FormControl('');
-  password: FormControl = new FormControl('');
+  form: FormGroup = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required, Validators.min(3)]),
+  });
 
   constructor(
     private router: Router,
     private store: Store<AppState>,
-    private authService: AuthService
+    private authService: SessionService
   ) {}
 
   ngOnInit(): void {}
 
   public onLogin() {
-    this.authService.login(this.email.value, this.password.value).subscribe(
-      (res) => console.log(res),
-      (ee) => {
-        debugger;
-      }
-    );
-    console.log(this.email.value, this.password.value);
-    this.store.dispatch(new SuccessLoginAction());
-    this.router.navigate(['/skills']);
+    if (this.form.valid) {
+      this.authService
+        .login(this.form.get('email')!.value, this.form.get('password')!.value)
+        .subscribe(
+          (res) => console.log(res),
+          (ee) => {
+            debugger;
+          }
+        );
+      this.store.dispatch(new SuccessLoginAction());
+      this.router.navigate(['/skills']);
+    }
   }
 
   public onLogout() {

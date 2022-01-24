@@ -4,11 +4,11 @@ import { AppState } from '../state/app.state';
 import { skillsReducer } from './skills.reducer';
 import { SkillsActions } from '../actions/skillsActions';
 import { sessionReducer } from './session.reducer';
-import { LoginActions } from '../actions/loginActions';
+import { SessionActions } from '../actions/sessionActions';
 
 export const reducers: ActionReducerMap<
   AppState,
-  SkillsActions & LoginActions
+  SkillsActions & SessionActions
 > = {
   skills: skillsReducer,
   session: sessionReducer,

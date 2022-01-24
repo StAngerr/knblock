@@ -15,7 +15,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { StoreModule } from '@ngrx/store';
-import { reducers, metaReducers } from './reducers';
+import { reducers } from './reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { SkillsEffects } from './effects/skills.effects';
 import { environment } from '../environments/environment';
@@ -29,6 +29,7 @@ import { LoginComponent } from './components/login/login.component';
 import { MainInterceptor } from './interceptors/MainInterceptor';
 import { RestorePasswordComponent } from './components/login/restore-password/restore-password.component';
 import { RegisterComponent } from './components/login/register/register.component';
+import { SessionEffects } from './effects/session.effects';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,7 @@ import { RegisterComponent } from './components/login/register/register.componen
     MatButtonModule,
     MatCardModule,
     StoreModule.forRoot(reducers),
-    EffectsModule.forRoot([SkillsEffects]),
+    EffectsModule.forRoot([SkillsEffects, SessionEffects]),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     MatAutocompleteModule,
     MatFormFieldModule,
