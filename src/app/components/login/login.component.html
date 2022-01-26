@@ -8,9 +8,11 @@
       <input formControlName="password" type="password" matInput placeholder="Password">
     </mat-form-field>
 
+    <p *ngFor="let error of errors$ | async" class="error">{{error}}</p>
+
     <div class="controls">
       <button type="button" [disabled]="!form.valid" mat-flat-button color="primary" (click)="onLogin()">Login</button>
-      <button type="button" [disabled]="!form.valid" mat-flat-button color="primary" (click)="onLogout()">logout</button>
+      <a routerLinkActive="mat-primary" mat-button routerLink="/signup">Dont have account? Sign up</a>
     </div>
   </form>
 </div>

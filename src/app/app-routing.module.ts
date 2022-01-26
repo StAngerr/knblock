@@ -6,12 +6,28 @@ import { WelcomePage } from './components/welcome-page/welcome-page';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/login/register/register.component';
 
+import { AuthOnlyUserGuard } from './guards/AuthOnlyUserGuard';
+import { NoAuthUserGuard } from './guards/NoAuthUserGuard';
+
 const routes: Routes = [
-  { path: 'login', component: LoginComponent },
-  { path: 'signup', component: RegisterComponent },
-  { path: 'skill-list', component: SkillList },
-  { path: 'skill/:id', component: SkillPage },
-  { path: '', component: WelcomePage },
+  { path: 'login', component: LoginComponent, canActivate: [NoAuthUserGuard] },
+  {
+    path: 'signup',
+    component: RegisterComponent,
+    canActivate: [NoAuthUserGuard],
+  },
+  {
+    path: 'skills',
+    component: SkillList,
+    canActivate: [AuthOnlyUserGuard],
+  },
+  {
+    path: 'skill/:id',
+    component: SkillPage,
+    canActivate: [AuthOnlyUserGuard],
+  },
+  { path: 'home', component: WelcomePage },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
 ];
 
 @NgModule({

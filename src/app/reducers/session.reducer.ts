@@ -9,7 +9,23 @@ export const sessionReducer = (
     case SessionActionsEnum.successLogin: {
       return {
         isAuthenticated: true,
+        errors: [],
       };
+    }
+    case SessionActionsEnum.logout: {
+      return {
+        ...state,
+        isAuthenticated: false,
+      };
+    }
+    case SessionActionsEnum.failedLogin: {
+      return {
+        ...state,
+        errors: [action.payload],
+      };
+    }
+    case SessionActionsEnum.logout: {
+      return initialSessionState;
     }
     default: {
       return state;

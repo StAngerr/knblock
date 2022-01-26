@@ -24,6 +24,8 @@
     "@ngrx/router-store": "^13.0.2",
     "@ngrx/store": "^13.0.2",
     "@ngrx/store-devtools": "^13.0.2",
+    "fortawesome": "^0.0.1-security",
+    "lodash-es": "^4.17.21",
     "rxjs": "~7.5.2",
     "tslib": "^2.3.1",
     "zone.js": "~0.11.4"
@@ -32,7 +34,9 @@
     "@angular-devkit/build-angular": "~13.1.2",
     "@angular/cli": "~13.1.2",
     "@angular/compiler-cli": "~13.1.2",
+    "@fortawesome/fontawesome-free": "^5.15.4",
     "@types/jasmine": "~3.10.3",
+    "@types/lodash-es": "^4.17.5",
     "@types/node": "^13.13.52",
     "jasmine-core": "~4.0.0",
     "karma": "~6.3.10",

@@ -20,4 +20,9 @@
   .form-header {
     text-align: center;
   }
+
+  .controls {
+    display: flex;
+    flex-direction: column;
+  }
 }

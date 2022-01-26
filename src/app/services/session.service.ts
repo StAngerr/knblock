@@ -6,25 +6,30 @@ import {
   logoutUrl,
   sighupUrl,
 } from '../constants/api-urls';
-import { Observable } from 'rxjs';
+import { catchError, Observable, tap } from 'rxjs';
 import { User } from '../types/user';
 import { AbstractControl, ValidationErrors } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SessionService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   public login(email: string, password: string) {
-    return this.http.post(loginUrl(), {
-      email,
-      password,
-    });
+    return this.http
+      .post(loginUrl(), {
+        email,
+        password,
+      })
+      .pipe(tap(() => this.router.navigate(['/skills'])));
   }
 
   public logout() {
-    return this.http.get(logoutUrl());
+    return this.http
+      .get(logoutUrl())
+      .pipe(tap(() => this.router.navigate(['/'])));
   }
 
   public signup(
@@ -41,7 +46,7 @@ export class SessionService {
     });
   }
 
-  public authStatusCheck(): Observable<User> {
+  public authStatusCheck() {
     return this.http.get<User>(authStatusCheckUrl());
   }
 

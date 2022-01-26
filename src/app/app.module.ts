@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, Inject, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -14,7 +14,7 @@ import { LayoutComponent } from './components/layout/layout.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { StoreModule } from '@ngrx/store';
+import { Store, StoreModule } from '@ngrx/store';
 import { reducers } from './reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { SkillsEffects } from './effects/skills.effects';
@@ -30,6 +30,21 @@ import { MainInterceptor } from './interceptors/MainInterceptor';
 import { RestorePasswordComponent } from './components/login/restore-password/restore-password.component';
 import { RegisterComponent } from './components/login/register/register.component';
 import { SessionEffects } from './effects/session.effects';
+import { AppHeaderComponent } from './components/layout/app-header/app-header.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { AuthOnlyUserGuard } from './guards/AuthOnlyUserGuard';
+import { NoAuthUserGuard } from './guards/NoAuthUserGuard';
+import { AppState } from './state/app.state';
+import { AuthStatusCheck } from './actions/sessionActions';
+
+export function initApp(store: Store<AppState>) {
+  return () =>
+    new Promise((res) => {
+      store.dispatch(new AuthStatusCheck());
+      res(true);
+    });
+}
 
 @NgModule({
   declarations: [
@@ -42,6 +57,7 @@ import { SessionEffects } from './effects/session.effects';
     LoginComponent,
     RegisterComponent,
     RestorePasswordComponent,
+    AppHeaderComponent,
   ],
   imports: [
     CommonModule,
@@ -60,9 +76,19 @@ import { SessionEffects } from './effects/session.effects';
     MatFormFieldModule,
     ReactiveFormsModule,
     MatInputModule,
+    MatIconModule,
+    MatMenuModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: MainInterceptor, multi: true },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initApp,
+      multi: true,
+      deps: [[new Inject(Store)]],
+    },
+    AuthOnlyUserGuard,
+    NoAuthUserGuard,
   ],
   bootstrap: [AppComponent],
 })

@@ -27,6 +27,8 @@
       <input formControlName="lastName" matInput type="text">
     </mat-form-field>
 
+    <p *ngFor="let error of errors$ | async" class="error">{{error}}</p>
+
     <button mat-flat-button
             type="button"
             (click)="handleCreateUser()" color="primary"
@@ -34,5 +36,6 @@
             >Create
       account
     </button>
+    <a routerLinkActive="mat-primary" mat-button routerLink="/login">Already have account? Log in</a>
   </form>
 </div>

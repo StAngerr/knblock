@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SessionService } from '../../../services/session.service';
+import { AppState } from '../../../state/app.state';
+import { Store } from '@ngrx/store';
+import { RegisterUserAction } from '../../../actions/sessionActions';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -23,24 +27,31 @@ export class RegisterComponent implements OnInit {
     firstName: new FormControl('', [Validators.min(3)]),
     lastName: new FormControl('', [Validators.min(3)]),
   });
+  errors$: Observable<string[]> = of([]);
 
-  constructor(private authService: SessionService) {}
+  constructor(
+    private authService: SessionService,
+    private store: Store<AppState>
+  ) {
+    this.errors$ = store.select((store) => store.session.errors);
+  }
 
   ngOnInit(): void {}
 
   handleCreateUser() {
-    debugger;
     if (this.form.valid && !this.form.get('passwords')!.errors?.length) {
-      this.authService
-        .signup(
-          this.form.get('email')!.value,
-          this.form.get('passwords.password')!.value,
-          this.form.get('firstName')!.value,
-          this.form.get('lastName')!.value
-        )
-        .subscribe((newUser) => {
-          console.log(newUser);
-        });
+      const email = this.form.get('email')!.value;
+      const password = this.form.get('passwords.password')!.value;
+      const firstName = this.form.get('firstName')!.value;
+      const lastName = this.form.get('lastName')!.value;
+      this.store.dispatch(
+        new RegisterUserAction({
+          email,
+          password,
+          firstName,
+          lastName,
+        })
+      );
     }
   }
 }

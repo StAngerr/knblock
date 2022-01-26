@@ -1,7 +1,9 @@
 export interface SessionState {
-  isAuthenticated: boolean;
+  isAuthenticated: boolean | null;
+  errors: string[];
 }
 
 export const initialSessionState = {
-  isAuthenticated: false,
+  isAuthenticated: null,
+  errors: [],
 };
