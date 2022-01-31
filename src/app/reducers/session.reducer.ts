@@ -27,6 +27,12 @@ export const sessionReducer = (
     case SessionActionsEnum.logout: {
       return initialSessionState;
     }
+    case SessionActionsEnum.setAuthStatus: {
+      return {
+        ...state,
+        isAuthenticated: action.payload,
+      };
+    }
     default: {
       return state;
     }

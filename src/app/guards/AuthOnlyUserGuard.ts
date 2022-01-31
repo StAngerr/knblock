@@ -22,8 +22,9 @@ export class AuthOnlyUserGuard<T> implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
+    console.log('AuthOnlyUserGuard canActivate called');
+
     return this.store.select((store) => {
-      debugger;
       return store.session.isAuthenticated as boolean;
     });
   }

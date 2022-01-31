@@ -21,6 +21,8 @@ export class NoAuthUserGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
+    console.log('NoAuthUserGuard canActivate called');
+
     return this.store.select((store) => !store.session.isAuthenticated);
   }
 }

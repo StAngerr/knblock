@@ -8,7 +8,12 @@ import { CommonModule } from '@angular/common';
 import { SkillPage } from './components/skill-page/skill-page';
 import { RouterModule } from '@angular/router';
 import { WelcomePage } from './components/welcome-page/welcome-page';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import {
+  HTTP_INTERCEPTORS,
+  HttpClientModule,
+  HttpClientXsrfModule,
+  HttpXsrfTokenExtractor,
+} from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutComponent } from './components/layout/layout.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -36,13 +41,31 @@ import { MatMenuModule } from '@angular/material/menu';
 import { AuthOnlyUserGuard } from './guards/AuthOnlyUserGuard';
 import { NoAuthUserGuard } from './guards/NoAuthUserGuard';
 import { AppState } from './state/app.state';
-import { AuthStatusCheck } from './actions/sessionActions';
+import { AuthStatusCheck, SetAuthStatusAction } from './actions/sessionActions';
+import { SessionService } from './services/session.service';
+import { catchError, EMPTY, of } from 'rxjs';
+import { XSRFInterceptor } from './interceptors/XSRFInterceptor';
 
-export function initApp(store: Store<AppState>) {
+export function initApp(
+  store: Store<AppState>,
+  sessionService: SessionService
+) {
   return () =>
     new Promise((res) => {
-      store.dispatch(new AuthStatusCheck());
-      res(true);
+      sessionService
+        .authStatusCheck()
+        .pipe(
+          catchError((e) => {
+            console.error(e);
+            store.dispatch(new SetAuthStatusAction(false));
+            res(true);
+            return EMPTY;
+          })
+        )
+        .subscribe(() => {
+          store.dispatch(new SetAuthStatusAction(true));
+          res(true);
+        });
     });
 }
 
@@ -78,15 +101,24 @@ export function initApp(store: Store<AppState>) {
     MatInputModule,
     MatIconModule,
     MatMenuModule,
+    HttpClientXsrfModule.withOptions({
+      cookieName: 'knblock-Xsrf-Cookie',
+      headerName: 'Xsrf-Header',
+    }),
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: MainInterceptor, multi: true },
     {
       provide: APP_INITIALIZER,
       useFactory: initApp,
       multi: true,
-      deps: [[new Inject(Store)]],
+      deps: [[new Inject(Store)], SessionService],
     },
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: XSRFInterceptor,
+    //   multi: true,
+    // },
+    { provide: HTTP_INTERCEPTORS, useClass: MainInterceptor, multi: true },
     AuthOnlyUserGuard,
     NoAuthUserGuard,
   ],

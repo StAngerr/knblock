@@ -7,6 +7,7 @@ export enum SessionActionsEnum {
   login = '[Session] login',
   logout = '[Session] logout',
   authStatusCheck = '[Session] auth status check',
+  setAuthStatus = '[Session] set auth status ',
 }
 
 export class LoginAction implements Action {
@@ -25,6 +26,11 @@ export class SuccessLoginAction implements Action {
 export class FailedLoginAction implements Action {
   public readonly type = SessionActionsEnum.failedLogin;
   constructor(public payload: string) {}
+}
+
+export class SetAuthStatusAction implements Action {
+  public readonly type = SessionActionsEnum.setAuthStatus;
+  constructor(public payload: boolean) {}
 }
 
 export class AuthStatusCheck implements Action {
@@ -54,4 +60,5 @@ export type SessionActions =
   | LoginAction
   | LogoutAction
   | RegisterUserAction
+  | SetAuthStatusAction
   | FailedLoginAction;

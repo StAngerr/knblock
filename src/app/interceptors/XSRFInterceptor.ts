@@ -1,0 +1,22 @@
+import {
+  HttpHandler,
+  HttpInterceptor,
+  HttpRequest,
+  HttpXsrfTokenExtractor,
+} from '@angular/common/http';
+import { Injectable } from '@angular/core';
+
+@Injectable()
+export class XSRFInterceptor implements HttpInterceptor {
+  constructor(private tokenExtractor: HttpXsrfTokenExtractor) {}
+  intercept(req: HttpRequest<any>, next: HttpHandler) {
+    const cookieheaderName = 'X-XSRF-TOKEN';
+    let csrfToken = this.tokenExtractor.getToken() as string;
+    if (csrfToken !== null && !req.headers.has(cookieheaderName)) {
+      req = req.clone({
+        headers: req.headers.set(cookieheaderName, csrfToken),
+      });
+    }
+    return next.handle(req);
+  }
+}
