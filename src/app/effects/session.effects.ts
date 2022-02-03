@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, EMPTY, from, map, mergeMap, of } from 'rxjs';
+import { catchError, map, mergeMap, of } from 'rxjs';
 import {
   FailedLoginAction,
   LoginAction,
-  LogoutAction,
-  RegisterUserActionPayload,
+  RegisterUserAction,
   SessionActionsEnum,
   SuccessLoginAction,
 } from '../actions/sessionActions';
@@ -59,7 +58,7 @@ export class SessionEffects {
   register$ = createEffect(() =>
     this.actions$.pipe(
       ofType(SessionActionsEnum.registerUser),
-      mergeMap((payload: RegisterUserActionPayload) =>
+      mergeMap(({ payload }: RegisterUserAction) =>
         this.sessionService
           .signup(
             payload.email,

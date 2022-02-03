@@ -101,10 +101,7 @@ export function initApp(
     MatInputModule,
     MatIconModule,
     MatMenuModule,
-    HttpClientXsrfModule.withOptions({
-      cookieName: 'knblock-Xsrf-Cookie',
-      headerName: 'Xsrf-Header',
-    }),
+    HttpClientXsrfModule.withOptions(),
   ],
   providers: [
     {
@@ -113,11 +110,11 @@ export function initApp(
       multi: true,
       deps: [[new Inject(Store)], SessionService],
     },
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: XSRFInterceptor,
-    //   multi: true,
-    // },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: XSRFInterceptor,
+      multi: true,
+    },
     { provide: HTTP_INTERCEPTORS, useClass: MainInterceptor, multi: true },
     AuthOnlyUserGuard,
     NoAuthUserGuard,
