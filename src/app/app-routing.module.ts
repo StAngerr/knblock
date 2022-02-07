@@ -8,12 +8,24 @@ import { RegisterComponent } from './components/login/register/register.componen
 
 import { AuthOnlyUserGuard } from './guards/AuthOnlyUserGuard';
 import { NoAuthUserGuard } from './guards/NoAuthUserGuard';
+import { RestorePasswordComponent } from './components/login/restore-password/restore-password.component';
+import { ChangePasswordComponent } from './components/login/change-password/change-password.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [NoAuthUserGuard] },
   {
     path: 'signup',
     component: RegisterComponent,
+    canActivate: [NoAuthUserGuard],
+  },
+  {
+    path: 'restore-password',
+    component: RestorePasswordComponent,
+    canActivate: [NoAuthUserGuard],
+  },
+  {
+    path: 'change-password',
+    component: ChangePasswordComponent,
     canActivate: [NoAuthUserGuard],
   },
   {

@@ -45,6 +45,7 @@ import { AuthStatusCheck, SetAuthStatusAction } from './actions/sessionActions';
 import { SessionService } from './services/session.service';
 import { catchError, EMPTY, of } from 'rxjs';
 import { XSRFInterceptor } from './interceptors/XSRFInterceptor';
+import { ChangePasswordComponent } from './components/login/change-password/change-password.component';
 
 export function initApp(
   store: Store<AppState>,
@@ -81,6 +82,7 @@ export function initApp(
     RegisterComponent,
     RestorePasswordComponent,
     AppHeaderComponent,
+    ChangePasswordComponent,
   ],
   imports: [
     CommonModule,

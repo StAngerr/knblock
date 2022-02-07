@@ -2,8 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {
   authStatusCheckUrl,
+  changePasswordUrl,
   loginUrl,
   logoutUrl,
+  restorePasswordUrl,
   sighupUrl,
 } from '../constants/api-urls';
 import { catchError, Observable, tap } from 'rxjs';
@@ -56,5 +58,17 @@ export class SessionService {
     return g.get('password')!.value === g.get('confirmPassword')!.value
       ? null
       : { mismatch: true };
+  }
+
+  public restorePassword(email: string) {
+    return this.http.post(restorePasswordUrl(), { email });
+  }
+
+  public changePassword(token: string, userId: string, newPassword: string) {
+    return this.http.post(changePasswordUrl(), {
+      restoreToken: token,
+      userId,
+      newPassword,
+    });
   }
 }
