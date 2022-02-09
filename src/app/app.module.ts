@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SkillList } from './components/skill-list/skill-list';
 import { CommonModule } from '@angular/common';
-import { SkillPage } from './components/skill-page/skill-page';
+import { SingleSkillPage } from './components/single-skill-page/single-skill-page';
 import { RouterModule } from '@angular/router';
 import { WelcomePage } from './components/welcome-page/welcome-page';
 import {
@@ -46,6 +46,12 @@ import { SessionService } from './services/session.service';
 import { catchError, EMPTY, of } from 'rxjs';
 import { XSRFInterceptor } from './interceptors/XSRFInterceptor';
 import { ChangePasswordComponent } from './components/login/change-password/change-password.component';
+import { NavigationComponent } from './components/layout/navigation/navigation.component';
+import { UserMenuComponent } from './components/layout/user-menu/user-menu.component';
+import { OutlinesComponent } from './components/outlines/outlines.component';
+import { CreateSkillComponent } from './components/create-skill/create-skill.component';
+import { EditSkillComponent } from './components/edit-skill/edit-skill.component';
+import { MatSelectModule } from '@angular/material/select';
 
 export function initApp(
   store: Store<AppState>,
@@ -74,7 +80,7 @@ export function initApp(
   declarations: [
     AppComponent,
     SkillList,
-    SkillPage,
+    SingleSkillPage,
     WelcomePage,
     LayoutComponent,
     CreateSkillFormComponent,
@@ -83,6 +89,11 @@ export function initApp(
     RestorePasswordComponent,
     AppHeaderComponent,
     ChangePasswordComponent,
+    NavigationComponent,
+    UserMenuComponent,
+    OutlinesComponent,
+    CreateSkillComponent,
+    EditSkillComponent,
   ],
   imports: [
     CommonModule,
@@ -104,6 +115,7 @@ export function initApp(
     MatIconModule,
     MatMenuModule,
     HttpClientXsrfModule.withOptions(),
+    MatSelectModule,
   ],
   providers: [
     {

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SkillPage } from './components/skill-page/skill-page';
+import { SingleSkillPage } from './components/single-skill-page/single-skill-page';
 import { SkillList } from './components/skill-list/skill-list';
 import { WelcomePage } from './components/welcome-page/welcome-page';
 import { LoginComponent } from './components/login/login.component';
@@ -10,6 +10,9 @@ import { AuthOnlyUserGuard } from './guards/AuthOnlyUserGuard';
 import { NoAuthUserGuard } from './guards/NoAuthUserGuard';
 import { RestorePasswordComponent } from './components/login/restore-password/restore-password.component';
 import { ChangePasswordComponent } from './components/login/change-password/change-password.component';
+import { OutlinesComponent } from './components/outlines/outlines.component';
+import { CreateSkillComponent } from './components/create-skill/create-skill.component';
+import { EditSkillComponent } from './components/edit-skill/edit-skill.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [NoAuthUserGuard] },
@@ -31,12 +34,26 @@ const routes: Routes = [
   {
     path: 'skills',
     component: SkillList,
+  },
+  {
+    path: 'skills/create',
+    component: CreateSkillComponent,
+    canActivate: [AuthOnlyUserGuard],
+    pathMatch: 'full',
+  },
+  {
+    path: 'skills/edit/:id',
+    component: EditSkillComponent,
     canActivate: [AuthOnlyUserGuard],
   },
   {
-    path: 'skill/:id',
-    component: SkillPage,
-    canActivate: [AuthOnlyUserGuard],
+    path: 'skills/:id',
+    component: SingleSkillPage,
+  },
+  {
+    path: 'outlines',
+    component: OutlinesComponent,
+    // canActivate: [AuthOnlyUserGuard],
   },
   { path: 'home', component: WelcomePage },
   { path: '', redirectTo: '/home', pathMatch: 'full' },

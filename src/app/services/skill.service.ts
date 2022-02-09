@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Skill } from '../types/skill';
 import { HttpClient } from '@angular/common/http';
-import { skillBaseUrl } from '../constants/api-urls';
+import { getCategoriesUrl, skillBaseUrl } from '../constants/api-urls';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +14,11 @@ export class SkillService {
     return this.http.get<Skill[]>(skillBaseUrl());
   }
 
-  public createSkill(title: string, description: string): Observable<Skill> {
-    return this.http.post<Skill>(skillBaseUrl(), { title, description });
+  public createSkill(newSkill: Omit<Skill, 'id'>): Observable<Skill> {
+    return this.http.post<Skill>(skillBaseUrl(), newSkill);
+  }
+
+  public getCategories() {
+    return this.http.get<string[]>(getCategoriesUrl());
   }
 }

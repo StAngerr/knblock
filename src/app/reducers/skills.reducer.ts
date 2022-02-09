@@ -16,6 +16,12 @@ export const skillsReducer = (
         skills: action.payload,
       };
     }
+    case SkillsActionsEnum.SetSkillCategories: {
+      return {
+        ...state,
+        categories: action.payload,
+      };
+    }
     default:
       return state;
   }

@@ -1,0 +1,36 @@
+<div class=" flex container flex-col items-center	max-w-2xl m-auto">
+  <h3 class="max-w-2xl">Create new knowledge block</h3>
+  <p class="max-w-2xl">Remember it should be generalized scope of information</p>
+  <form class="flex flex-col min-w-full ">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Title</mat-label>
+      <input type="text" matInput [formControl]="title"
+             placeholder="Knowledge block name">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Short description</mat-label>
+      <input type="text" matInput [formControl]="shortDescription"
+             placeholder="Description">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Block description</mat-label>
+      <textarea class="!resize-none" type="text" matInput [formControl]="description"
+                placeholder="Description" ></textarea>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Block category</mat-label>
+      <mat-select [formControl]="category"  [ngModel]="category.value">
+        <mat-option *ngFor="let ct of categories$ | async" [value]="ct">{{ct}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="flex items-center justify-between">
+      <button  type="button" mat-stroked-button routerLink="/skills" >Cancel</button>
+      <button type="button" mat-flat-button color="primary" (click)="handleCreate()" >Create</button>
+    </div>
+  </form>
+
+</div>

@@ -43,6 +43,6 @@ export class SkillList implements OnInit {
   }
 
   handleCreateSkill(newSkill: { title: string; description: string }) {
-    this.store.dispatch(new CreateNewSkillAction(newSkill));
+    // this.store.dispatch(new CreateNewSkillAction(newSkill));
   }
 }

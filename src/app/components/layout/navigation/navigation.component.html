@@ -1,0 +1,14 @@
+<nav class="flex-grow space-x-2" >
+  <a routerLinkActive="mat-flat-button" mat-stroked-button color="primary" routerLink="/home" [routerLinkActiveOptions]="{ exact: true }">About</a>
+  <a routerLinkActive="mat-flat-button" mat-stroked-button color="primary" routerLink="/skills">Knowledge blocks</a>
+  <a routerLinkActive="mat-flat-button" mat-stroked-button color="primary" routerLink="/outlines">Outlines</a>
+</nav>
+<nav *ngIf="!isAuthenticated">
+  <a routerLinkActive="mat-primary" mat-button routerLink="/login">Login</a>
+  <a routerLinkActive="mat-primary" mat-button routerLink="/signup">Sign up</a>
+</nav>
+
+<nav *ngIf="isAuthenticated">
+  <button mat-flat-button color="primary" class="!mr-10" routerLink="/skills/create">New block</button>
+  <button mat-flat-button color="primary" routerLink="/hone">New outline</button>
+</nav>

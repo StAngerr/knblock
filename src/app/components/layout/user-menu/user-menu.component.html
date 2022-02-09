@@ -1,0 +1,11 @@
+<div class="user-menu" *ngIf="isAuthenticated">
+  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="handleLogout()">
+      <mat-icon fontSet="fas" fontIcon="fa-sign-in-alt"></mat-icon>
+      <span>Logout</span>
+    </button>
+  </mat-menu>
+</div>

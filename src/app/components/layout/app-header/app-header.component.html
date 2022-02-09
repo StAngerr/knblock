@@ -1,23 +1,5 @@
-<mat-toolbar>
-  <h3>knBlock</h3>
-  <span class="spacer"></span>
-  <nav *ngIf="isAuthenticated">
-    <a routerLinkActive="mat-primary" mat-button routerLink="/"  [routerLinkActiveOptions]="{ exact: true }">Home</a>
-    <a routerLinkActive="mat-primary" mat-button routerLink="/skills">Skills</a>
-  </nav>
-  <nav *ngIf="!isAuthenticated">
-    <a routerLinkActive="mat-primary" mat-button routerLink="/login">Login</a>
-    <a routerLinkActive="mat-primary" mat-button routerLink="/signup">Sign up</a>
-  </nav>
-  <div class="user-menu" *ngIf="isAuthenticated">
-    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-      <mat-icon>more_vert</mat-icon>
-    </button>
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item (click)="onLogout()">
-        <mat-icon fontSet="fas" fontIcon="fa-sign-in-alt"></mat-icon>
-        <span>Logout</span>
-      </button>
-    </mat-menu>
-  </div>
+<mat-toolbar class="flex-row space-x-4">
+  <h3 >knBlock</h3>
+  <app-navigation class="flex-grow flex" [isAuthenticated]="isAuthenticated"></app-navigation>
+  <app-user-menu   (logout)="onLogout()" [isAuthenticated]="isAuthenticated"></app-user-menu>
 </mat-toolbar>

@@ -5,6 +5,8 @@ export enum SkillsActionsEnum {
   GetAll = '[Skills] Get all skills',
   GetAllSuccess = '[Skills] Get all skills success',
   CreateNewSkill = '[Skills] Create new Skill',
+  GetCategories = '[Skills] Get skill categories',
+  SetSkillCategories = '[Skills] Set skill categories',
 }
 
 export class GetAllSkillsAction implements Action {
@@ -20,7 +22,20 @@ export class GetAllSkillsSuccessAction implements Action {
 export class CreateNewSkillAction implements Action {
   public readonly type = SkillsActionsEnum.CreateNewSkill;
 
-  constructor(public payload: { title: string; description: string }) {}
+  constructor(public payload: Omit<Skill, 'id'>) {}
 }
 
-export type SkillsActions = GetAllSkillsAction | GetAllSkillsSuccessAction;
+export class SetSkillCategories implements Action {
+  public readonly type = SkillsActionsEnum.SetSkillCategories;
+
+  constructor(public payload: string[]) {}
+}
+
+export class GetCategories implements Action {
+  public readonly type = SkillsActionsEnum.GetCategories;
+}
+export type SkillsActions =
+  | GetAllSkillsAction
+  | GetAllSkillsSuccessAction
+  | SetSkillCategories
+  | GetCategories;

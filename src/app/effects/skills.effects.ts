@@ -3,11 +3,13 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { SkillService } from '../services/skill.service';
 import {
   CreateNewSkillAction,
+  SetSkillCategories,
   SkillsActionsEnum,
 } from '../actions/skillsActions';
 import { catchError, EMPTY, map, mergeMap } from 'rxjs';
 import { AppState } from '../state/app.state';
 import { Store } from '@ngrx/store';
+import { getCategoriesUrl } from '../constants/api-urls';
 
 @Injectable()
 export class SkillsEffects {
@@ -30,15 +32,26 @@ export class SkillsEffects {
     this.actions$.pipe(
       ofType(SkillsActionsEnum.CreateNewSkill),
       mergeMap((action: CreateNewSkillAction) =>
+        this.skillService.createSkill(action.payload).pipe(
+          map((newSkill) => ({
+            //this.store.select(selectSkills)
+            type: SkillsActionsEnum.GetAllSuccess,
+            payload: [newSkill],
+          })),
+          catchError(() => EMPTY)
+        )
+      )
+    )
+  );
+
+  getCategories = createEffect(() =>
+    this.actions$.pipe(
+      ofType(SkillsActionsEnum.GetCategories),
+      mergeMap(() =>
         this.skillService
-          .createSkill(action.payload.title, action.payload.description)
+          .getCategories()
           .pipe(
-            map((newSkill) => ({
-              //this.store.select(selectSkills)
-              type: SkillsActionsEnum.GetAllSuccess,
-              payload: [newSkill],
-            })),
-            catchError(() => EMPTY)
+            map((categories: string[]) => new SetSkillCategories(categories))
           )
       )
     )
