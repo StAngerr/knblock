@@ -1,1 +1,36 @@
-<p>edit-skill works!</p>
+<div class="flex container flex-col items-center	max-w-2xl m-auto">
+  <h3 class="max-w-2xl">Create new knowledge block</h3>
+  <p class="max-w-2xl">Remember it should be generalized scope of information</p>
+  <form [formGroup]="form"   class="flex flex-col min-w-full ">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Title</mat-label>
+      <input type="text" matInput formControlName="title"
+             placeholder="Knowledge block name">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Short description</mat-label>
+      <input type="text" matInput formControlName="shortDescription"
+             placeholder="Description">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Block description</mat-label>
+      <textarea class="!resize-none" type="text" matInput formControlName="description"
+                placeholder="Description" ></textarea>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Block category</mat-label>
+      <mat-select formControlName="category" [ngModel]="form.get('category')!.value">
+        <mat-option *ngFor="let ct of categories$ | async" [value]="ct.toLowerCase()">{{ct}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="flex items-center justify-between">
+      <button  type="button" mat-stroked-button routerLink="/skills" >Cancel</button>
+      <button type="button" mat-flat-button color="primary" (click)="handleSave()" >Save</button>
+    </div>
+  </form>
+
+</div>

@@ -3,9 +3,18 @@
     <mat-icon>more_vert</mat-icon>
   </button>
   <mat-menu #menu="matMenu">
+    <button mat-menu-item routerLink="/user/skills" >
+      <mat-icon fontSet="fas" fontIcon="fa-atlas"></mat-icon>
+      <span>My Blocks</span>
+    </button>
+    <button mat-menu-item (click)="handleLogout()">
+      <mat-icon fontSet="fas" fontIcon="fa-id-badge"></mat-icon>
+      <span>Profile</span>
+    </button>
     <button mat-menu-item (click)="handleLogout()">
       <mat-icon fontSet="fas" fontIcon="fa-sign-in-alt"></mat-icon>
       <span>Logout</span>
     </button>
   </mat-menu>
 </div>
+<i class="fa-solid fa-book-atlas"></i>

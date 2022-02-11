@@ -1,0 +1,13 @@
+<div class="container max-w-4xl">
+  <h3>Your knowledge blocks</h3>
+  <mat-card *ngFor="let skill of $skills | async">
+    <mat-card-title>{{skill.title}}</mat-card-title>
+    <mat-card-subtitle>{{skill.shortDescription}}</mat-card-subtitle>
+    <mat-card-actions>
+      <mat-icon class="cursor-pointer" fontSet="fas" fontIcon="fa-pen"  [routerLink]="'/user/skills/edit/' + skill.id"></mat-icon>
+      <mat-icon class="cursor-pointer" fontSet="fas" fontIcon="fa-trash" (click)="handleRemoveSkill(skill.id)"></mat-icon>
+    </mat-card-actions>
+  </mat-card>
+  <p *ngIf="($skills | async)?.length==0">You haven't create any blocks</p>
+</div>
+

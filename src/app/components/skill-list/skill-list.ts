@@ -41,8 +41,4 @@ export class SkillList implements OnInit {
     this.isCreateSkill = true;
     this.isEditSkill = false;
   }
-
-  handleCreateSkill(newSkill: { title: string; description: string }) {
-    // this.store.dispatch(new CreateNewSkillAction(newSkill));
-  }
 }

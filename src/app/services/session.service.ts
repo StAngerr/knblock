@@ -8,7 +8,7 @@ import {
   restorePasswordUrl,
   sighupUrl,
 } from '../constants/api-urls';
-import { catchError, Observable, tap } from 'rxjs';
+import { tap } from 'rxjs';
 import { User } from '../types/user';
 import { AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';

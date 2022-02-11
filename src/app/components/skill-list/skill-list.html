@@ -1,6 +1,4 @@
-<app-create-skill-form (cancelCreate)="isCreateSkill = false" *ngIf="isCreateSkill" (onCreate)="handleCreateSkill($event)"></app-create-skill-form>
 <div class="controls-panel" *ngIf="!isCreateSkill && !isEditSkill">
-  <button  mat-flat-button color="primary" (click)="handleCreate()" >Create new</button>
   <mat-form-field class="example-full-width" appearance="fill">
     <mat-label>Search skill</mat-label>
     <input type="text"

@@ -13,6 +13,7 @@ import { ChangePasswordComponent } from './components/login/change-password/chan
 import { OutlinesComponent } from './components/outlines/outlines.component';
 import { CreateSkillComponent } from './components/create-skill/create-skill.component';
 import { EditSkillComponent } from './components/edit-skill/edit-skill.component';
+import { UserSkillsComponent } from './components/user-skills/user-skills.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [NoAuthUserGuard] },
@@ -41,19 +42,24 @@ const routes: Routes = [
     canActivate: [AuthOnlyUserGuard],
     pathMatch: 'full',
   },
-  {
-    path: 'skills/edit/:id',
-    component: EditSkillComponent,
-    canActivate: [AuthOnlyUserGuard],
-  },
+
   {
     path: 'skills/:id',
     component: SingleSkillPage,
   },
   {
+    path: 'user/skills',
+    component: UserSkillsComponent,
+    canActivate: [AuthOnlyUserGuard],
+  },
+  {
+    path: 'user/skills/edit/:id',
+    component: EditSkillComponent,
+    canActivate: [AuthOnlyUserGuard],
+  },
+  {
     path: 'outlines',
     component: OutlinesComponent,
-    // canActivate: [AuthOnlyUserGuard],
   },
   { path: 'home', component: WelcomePage },
   { path: '', redirectTo: '/home', pathMatch: 'full' },

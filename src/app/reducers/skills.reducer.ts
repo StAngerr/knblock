@@ -9,7 +9,7 @@ export const skillsReducer = (
     case SkillsActionsEnum.GetAll: {
       return { ...state, isLoading: true };
     }
-    case SkillsActionsEnum.GetAllSuccess: {
+    case SkillsActionsEnum.SetAllSkills: {
       return {
         ...state,
         isLoading: false,
@@ -19,7 +19,15 @@ export const skillsReducer = (
     case SkillsActionsEnum.SetSkillCategories: {
       return {
         ...state,
-        categories: action.payload,
+        categories: action.payload as string[],
+      };
+    }
+    case SkillsActionsEnum.SetUpdatedSkill: {
+      return {
+        ...state,
+        skills: state.skills.map((item) =>
+          item.id === action.payload.id ? { ...item, ...action.payload } : item
+        ),
       };
     }
     default:

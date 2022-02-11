@@ -3,24 +3,31 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { SkillService } from '../services/skill.service';
 import {
   CreateNewSkillAction,
+  DeleteSkillAction,
+  GetAllSkillsAction,
   SetSkillCategories,
   SkillsActionsEnum,
+  UpdateSkillAction,
 } from '../actions/skillsActions';
-import { catchError, EMPTY, map, mergeMap } from 'rxjs';
+import { catchError, EMPTY, map, mergeMap, take } from 'rxjs';
 import { AppState } from '../state/app.state';
-import { Store } from '@ngrx/store';
-import { getCategoriesUrl } from '../constants/api-urls';
+import { Action, Store } from '@ngrx/store';
+import { HttpParams } from '@angular/common/http';
+import { Skill } from '../types/skill';
 
 @Injectable()
 export class SkillsEffects {
   getSkills$ = createEffect(() =>
     this.actions$.pipe(
       ofType(SkillsActionsEnum.GetAll),
-      mergeMap(() =>
-        this.skillService.getSkills().pipe(
+      mergeMap((action: GetAllSkillsAction) =>
+        this.skillService.getSkills(action.payload as HttpParams).pipe(
           map((skills) => ({
-            type: SkillsActionsEnum.GetAllSuccess,
-            payload: skills,
+            type: SkillsActionsEnum.SetAllSkills,
+            payload: skills.map((item) => ({
+              ...item,
+              id: item.id.toString(),
+            })),
           })),
           catchError(() => EMPTY)
         )
@@ -35,7 +42,7 @@ export class SkillsEffects {
         this.skillService.createSkill(action.payload).pipe(
           map((newSkill) => ({
             //this.store.select(selectSkills)
-            type: SkillsActionsEnum.GetAllSuccess,
+            type: SkillsActionsEnum.SetAllSkills,
             payload: [newSkill],
           })),
           catchError(() => EMPTY)
@@ -53,6 +60,43 @@ export class SkillsEffects {
           .pipe(
             map((categories: string[]) => new SetSkillCategories(categories))
           )
+      )
+    )
+  );
+
+  $deleteSkill = createEffect(() =>
+    this.actions$.pipe(
+      ofType(SkillsActionsEnum.DeleteSkill),
+      mergeMap((action: DeleteSkillAction) =>
+        this.skillService.deleteSkill(action.payload).pipe(
+          mergeMap(() =>
+            this.store
+              .select((store: AppState) => store.skills.skills)
+              .pipe(
+                take(1),
+                map((currentSkillList: Skill[]) => ({
+                  type: SkillsActionsEnum.SetAllSkills,
+                  payload: currentSkillList.filter(
+                    (skill: Skill) => skill.id !== action.payload
+                  ),
+                }))
+              )
+          )
+        )
+      )
+    )
+  );
+
+  $updateSkill = createEffect(() =>
+    this.actions$.pipe(
+      ofType(SkillsActionsEnum.UpdateSkill),
+      mergeMap((action: UpdateSkillAction) =>
+        this.skillService.updateSkill(action.payload).pipe(
+          map((updatedSkill) => ({
+            type: SkillsActionsEnum.SetUpdatedSkill,
+            payload: updatedSkill,
+          }))
+        )
       )
     )
   );

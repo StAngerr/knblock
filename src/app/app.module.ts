@@ -52,6 +52,7 @@ import { OutlinesComponent } from './components/outlines/outlines.component';
 import { CreateSkillComponent } from './components/create-skill/create-skill.component';
 import { EditSkillComponent } from './components/edit-skill/edit-skill.component';
 import { MatSelectModule } from '@angular/material/select';
+import { UserSkillsComponent } from './components/user-skills/user-skills.component';
 
 export function initApp(
   store: Store<AppState>,
@@ -94,6 +95,7 @@ export function initApp(
     OutlinesComponent,
     CreateSkillComponent,
     EditSkillComponent,
+    UserSkillsComponent,
   ],
   imports: [
     CommonModule,
