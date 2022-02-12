@@ -3,12 +3,9 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { AppState } from '../../state/app.state';
 import { select, Store } from '@ngrx/store';
-import {
-  CreateNewSkillAction,
-  GetAllSkillsAction,
-} from '../../actions/skillsActions';
+import { GetAllSkillsAction } from '../../actions/skillsActions';
 import { selectSkills } from '../../selectors/skills.selectors';
-import { Observable } from 'rxjs';
+import { debounce, interval, Observable } from 'rxjs';
 import { Skill } from '../../types/skill';
 import { FormControl } from '@angular/forms';
 
@@ -19,7 +16,7 @@ import { FormControl } from '@angular/forms';
 export class SkillList implements OnInit {
   skills$: Observable<Skill[]> = this.store.pipe(select(selectSkills));
   auto: string = '';
-  myControl = new FormControl();
+  searchInput = new FormControl('');
   isCreateSkill = false;
   isEditSkill = false;
 
@@ -27,7 +24,18 @@ export class SkillList implements OnInit {
     private router: Router,
     private http: HttpClient,
     private store: Store<AppState>
-  ) {}
+  ) {
+    this.searchInput.valueChanges
+      .pipe(debounce(() => interval(300)))
+      .subscribe(() => {
+        const value = this.searchInput.value.trim();
+        this.store.dispatch(
+          new GetAllSkillsAction({
+            searchQuery: value,
+          })
+        );
+      });
+  }
 
   openSkill(id: string) {
     this.router.navigate([`/skill/${id}`]);

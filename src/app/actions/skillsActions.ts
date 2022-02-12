@@ -14,6 +14,7 @@ export enum SkillsActionsEnum {
 
 interface SkillRequestOptions {
   currentUserOnly?: boolean;
+  searchQuery?: string;
 }
 
 export class GetAllSkillsAction implements Action {

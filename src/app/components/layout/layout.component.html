@@ -1,4 +1,16 @@
-<app-header [isAuthenticated]="isAuthenticated"></app-header>
-<section class="content">
-  <router-outlet></router-outlet>
-</section>
+<div class="grid  h-full">
+  <div class="col-span-3">
+    <app-header [isAuthenticated]="isAuthenticated"></app-header>
+  </div>
+  <div class="col-span-3 ">
+    <section class="content">
+      <router-outlet></router-outlet>
+    </section>
+  </div>
+  <footer class="col-span-3 p-2">
+    <p>knowladge blocks ®</p>
+  </footer>
+
+</div>
+
+
