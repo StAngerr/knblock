@@ -1,9 +1,25 @@
 
-<div *ngIf="id">
-  <h3> Skill {{id}} info:</h3>
-  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta earum exercitationem hic libero molestias necessitatibus sapiente sed sunt ut vel?</p>
-</div>
 
-<div *ngIf="!id">
-  <h3>No skill found with id {{id}}</h3>
+<div class="container m-auto">
+  <mat-card *ngIf="(selectedSkill$ | async) as skill">
+    <mat-card-title>
+      {{skill.title}}
+    </mat-card-title>
+    <mat-card-subtitle>
+      {{skill.shortDescription}}
+    </mat-card-subtitle>
+    <mat-card-content>
+      {{skill.description}}
+    </mat-card-content>
+    <mat-card-footer>
+      <span>{{skill.category}}</span>
+      <span>rating 3.1</span>
+      <span>Author</span>
+    </mat-card-footer>
+  </mat-card>
+
+
+  <section>
+    skill body
+  </section>
 </div>

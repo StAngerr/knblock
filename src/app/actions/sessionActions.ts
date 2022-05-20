@@ -1,4 +1,5 @@
 import { Action } from '@ngrx/store';
+import { User } from '../types/user';
 
 export enum SessionActionsEnum {
   successLogin = '[Session] success login',
@@ -21,6 +22,7 @@ export class LoginAction implements Action {
 
 export class SuccessLoginAction implements Action {
   public readonly type = SessionActionsEnum.successLogin;
+  constructor(public payload: User) {}
 }
 
 export class FailedLoginAction implements Action {
@@ -30,7 +32,7 @@ export class FailedLoginAction implements Action {
 
 export class SetAuthStatusAction implements Action {
   public readonly type = SessionActionsEnum.setAuthStatus;
-  constructor(public payload: boolean) {}
+  constructor(public payload: User | null) {}
 }
 
 export class AuthStatusCheck implements Action {

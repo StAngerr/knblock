@@ -14,6 +14,7 @@ import { OutlinesComponent } from './components/outlines/outlines.component';
 import { CreateSkillComponent } from './components/create-skill/create-skill.component';
 import { EditSkillComponent } from './components/edit-skill/edit-skill.component';
 import { UserSkillsComponent } from './components/user-skills/user-skills.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [NoAuthUserGuard] },
@@ -55,6 +56,11 @@ const routes: Routes = [
   {
     path: 'user/skills/edit/:id',
     component: EditSkillComponent,
+    canActivate: [AuthOnlyUserGuard],
+  },
+  {
+    path: 'user/profile',
+    component: ProfileComponent,
     canActivate: [AuthOnlyUserGuard],
   },
   {

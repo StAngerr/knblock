@@ -10,6 +10,8 @@ export enum SkillsActionsEnum {
   SetUpdatedSkill = '[Skills] Set updated skill',
   UpdateSkill = '[Skills] Update skill',
   DeleteSkill = '[Skills] Delete skill',
+  GetSkillById = '[Skills] Get skill by id',
+  SetSelectedSkill = '[Skills] Set selected skill',
 }
 
 interface SkillRequestOptions {
@@ -56,6 +58,16 @@ export class UpdateSkillAction implements Action {
   constructor(public payload: Pick<Skill, 'id'> & Partial<Skill>) {}
 }
 
+export class GetSkillByIdAction implements Action {
+  public readonly type = SkillsActionsEnum.GetSkillById;
+  constructor(public payload: string) {}
+}
+
+export class SetSelectedSkillAction implements Action {
+  public readonly type = SkillsActionsEnum.SetSelectedSkill;
+  constructor(public payload: Skill) {}
+}
+
 export type SkillsActions =
   | GetAllSkillsAction
   | GetAllSkillsSuccessAction
@@ -63,4 +75,6 @@ export type SkillsActions =
   | SetSkillCategories
   | SetUpdatedSkillAction
   | UpdateSkillAction
+  | GetSkillByIdAction
+  | SetSelectedSkillAction
   | GetCategories;

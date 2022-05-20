@@ -53,6 +53,10 @@ import { CreateSkillComponent } from './components/create-skill/create-skill.com
 import { EditSkillComponent } from './components/edit-skill/edit-skill.component';
 import { MatSelectModule } from '@angular/material/select';
 import { UserSkillsComponent } from './components/user-skills/user-skills.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { User } from './types/user';
+import { EditableInputComponent } from './components/profile/editable-input/editable-input.component';
+import { UserEffects } from './effects/user.effects';
 
 export function initApp(
   store: Store<AppState>,
@@ -65,13 +69,13 @@ export function initApp(
         .pipe(
           catchError((e) => {
             console.error(e);
-            store.dispatch(new SetAuthStatusAction(false));
+            store.dispatch(new SetAuthStatusAction(null));
             res(true);
             return EMPTY;
           })
         )
-        .subscribe(() => {
-          store.dispatch(new SetAuthStatusAction(true));
+        .subscribe((data: User) => {
+          store.dispatch(new SetAuthStatusAction(data));
           res(true);
         });
     });
@@ -96,6 +100,8 @@ export function initApp(
     CreateSkillComponent,
     EditSkillComponent,
     UserSkillsComponent,
+    ProfileComponent,
+    EditableInputComponent,
   ],
   imports: [
     CommonModule,
@@ -108,7 +114,7 @@ export function initApp(
     MatButtonModule,
     MatCardModule,
     StoreModule.forRoot(reducers),
-    EffectsModule.forRoot([SkillsEffects, SessionEffects]),
+    EffectsModule.forRoot([SkillsEffects, SessionEffects, UserEffects]),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     MatAutocompleteModule,
     MatFormFieldModule,

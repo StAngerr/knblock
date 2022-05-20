@@ -1,9 +1,13 @@
+import { User } from '../types/user';
+
 export interface SessionState {
-  isAuthenticated: boolean | null;
+  isAuthenticated: boolean;
+  currentUser: User | null;
   errors: string[];
 }
 
-export const initialSessionState = {
-  isAuthenticated: null,
+export const initialSessionState: SessionState = {
+  isAuthenticated: false,
+  currentUser: null,
   errors: [],
 };

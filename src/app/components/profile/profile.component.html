@@ -1,0 +1,7 @@
+<section class="container" >
+  <form action="" *ngIf="currentUser$ | async as user">
+    <app-editable-input [value]="user.email" type="email"  [label]="'Email'" (onChange)="handleUpdateProfileData({ email: $event })"></app-editable-input>
+    <app-editable-input [value]="user.firstName" [label]="'First name'" (onChange)="handleUpdateProfileData({ firstName: $event })"></app-editable-input>
+    <app-editable-input [value]="user.lastName" [label]="'Last name'" (onChange)="handleUpdateProfileData({ lastName: $event})"></app-editable-input>
+  </form>
+</section>

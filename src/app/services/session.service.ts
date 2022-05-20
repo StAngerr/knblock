@@ -21,7 +21,7 @@ export class SessionService {
 
   public login(email: string, password: string) {
     return this.http
-      .post(loginUrl(), {
+      .post<User>(loginUrl(), {
         email,
         password,
       })
@@ -40,7 +40,7 @@ export class SessionService {
     firstName: string = '',
     lastName: string = ''
   ) {
-    return this.http.post(sighupUrl(), {
+    return this.http.post<User>(sighupUrl(), {
       email,
       password,
       firstName,

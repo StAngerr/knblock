@@ -38,7 +38,7 @@ export class SkillList implements OnInit {
   }
 
   openSkill(id: string) {
-    this.router.navigate([`/skill/${id}`]);
+    this.router.navigate([`/skills/${id}`]);
   }
 
   ngOnInit(): void {

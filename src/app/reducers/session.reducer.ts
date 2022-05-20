@@ -4,10 +4,11 @@ import { SessionActions, SessionActionsEnum } from '../actions/sessionActions';
 export const sessionReducer = (
   state: SessionState = initialSessionState,
   action: SessionActions
-) => {
+): SessionState => {
   switch (action.type) {
     case SessionActionsEnum.successLogin: {
       return {
+        currentUser: action.payload,
         isAuthenticated: true,
         errors: [],
       };
@@ -30,7 +31,8 @@ export const sessionReducer = (
     case SessionActionsEnum.setAuthStatus: {
       return {
         ...state,
-        isAuthenticated: action.payload,
+        isAuthenticated: !!action.payload,
+        currentUser: action.payload,
       };
     }
     default: {

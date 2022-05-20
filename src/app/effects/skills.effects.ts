@@ -5,6 +5,7 @@ import {
   CreateNewSkillAction,
   DeleteSkillAction,
   GetAllSkillsAction,
+  GetSkillByIdAction,
   SetSkillCategories,
   SkillsActionsEnum,
   UpdateSkillAction,
@@ -95,6 +96,20 @@ export class SkillsEffects {
           map((updatedSkill) => ({
             type: SkillsActionsEnum.SetUpdatedSkill,
             payload: updatedSkill,
+          }))
+        )
+      )
+    )
+  );
+
+  $getSkillById = createEffect(() =>
+    this.actions$.pipe(
+      ofType(SkillsActionsEnum.GetSkillById),
+      mergeMap((action: GetSkillByIdAction) =>
+        this.skillService.getSkillById(action.payload).pipe(
+          map((skill: Skill) => ({
+            type: SkillsActionsEnum.SetSelectedSkill,
+            payload: skill,
           }))
         )
       )

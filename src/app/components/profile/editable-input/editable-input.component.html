@@ -1,0 +1,13 @@
+<div class="flex w-full">
+  <mat-form-field  class="w-3/4" appearance="fill">
+    <mat-label>{{label}}</mat-label>
+    <input [readonly]="!isEdit" [formControl]="input" matInput [type]="type" [value]="value">
+    <button class="absolute inset-y-0 right-0.5" *ngIf="!isEdit" matSuffix mat-icon-button (click)="handleEditField()">
+      <mat-icon fontSet="fas" fontIcon="fa-pen"></mat-icon>
+    </button>
+  </mat-form-field>
+  <div class="ml-2.5 flex justify-center items-center" *ngIf="isEdit">
+    <button type="button" class="!mr-1" mat-stroked-button color="primary" (click)="handleChangeValue()">Save</button>
+    <button type="button" mat-stroked-button (click)="cancelEdit()">Cancel</button>
+  </div>
+</div>

@@ -5,6 +5,8 @@ export const skillByIdUrl = (id: string) => `${host}/skills/${id}`;
 export const getCategoriesUrl = () => `${host}/skills/categories`;
 export const getDeleteSkillUrl = (id: string) => `${host}/skills/${id}`;
 
+export const userByIdUrl = (id: string) => `${host}/users/${id}`;
+
 export const loginUrl = () => `${host}/auth/login`;
 export const logoutUrl = () => `${host}/auth/logout`;
 export const sighupUrl = () => `${host}/auth/register`;

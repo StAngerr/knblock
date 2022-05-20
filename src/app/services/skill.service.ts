@@ -34,6 +34,10 @@ export class SkillService {
     return this.http.post<Skill>(skillBaseUrl(), newSkill);
   }
 
+  public getSkillById(id: string): Observable<Skill> {
+    return this.http.get<Skill>(skillByIdUrl(id));
+  }
+
   public getCategories() {
     return this.http.get<string[]>(getCategoriesUrl());
   }

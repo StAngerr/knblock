@@ -30,6 +30,13 @@ export const skillsReducer = (
         ),
       };
     }
+
+    case SkillsActionsEnum.SetSelectedSkill: {
+      return {
+        ...state,
+        selectedSkill: action.payload,
+      };
+    }
     default:
       return state;
   }

@@ -12,6 +12,7 @@ import { SessionService } from '../services/session.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '../state/app.state';
 import { HttpErrorResponse } from '@angular/common/http';
+import { User } from '../types/user';
 
 @Injectable()
 export class SessionEffects {
@@ -25,9 +26,11 @@ export class SessionEffects {
     this.actions$.pipe(
       ofType(SessionActionsEnum.authStatusCheck),
       mergeMap(() => {
-        return this.sessionService
-          .authStatusCheck()
-          .pipe(map(() => new SuccessLoginAction()));
+        return this.sessionService.authStatusCheck().pipe(
+          map((data: User) => {
+            return new SuccessLoginAction(data);
+          })
+        );
       })
     )
   );
@@ -37,7 +40,9 @@ export class SessionEffects {
       ofType(SessionActionsEnum.login),
       mergeMap(({ payload }: LoginAction) =>
         this.sessionService.login(payload.email, payload.password).pipe(
-          map(() => new SuccessLoginAction()),
+          map((data: User) => {
+            return new SuccessLoginAction(data);
+          }),
           catchError(({ error }: HttpErrorResponse) => {
             return of(new FailedLoginAction(error));
           })
@@ -67,7 +72,7 @@ export class SessionEffects {
             payload.lastName
           )
           .pipe(
-            map(() => new SuccessLoginAction()),
+            map((data: User) => new SuccessLoginAction(data)),
             catchError(({ error }: HttpErrorResponse) =>
               of(new FailedLoginAction(error))
             )
