@@ -12,7 +12,6 @@ import {
   HTTP_INTERCEPTORS,
   HttpClientModule,
   HttpClientXsrfModule,
-  HttpXsrfTokenExtractor,
 } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutComponent } from './components/layout/layout.component';
@@ -41,7 +40,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { AuthOnlyUserGuard } from './guards/AuthOnlyUserGuard';
 import { NoAuthUserGuard } from './guards/NoAuthUserGuard';
 import { AppState } from './state/app.state';
-import { AuthStatusCheck, SetAuthStatusAction } from './actions/sessionActions';
+import { SetAuthStatusAction } from './actions/sessionActions';
 import { SessionService } from './services/session.service';
 import { catchError, EMPTY, of } from 'rxjs';
 import { XSRFInterceptor } from './interceptors/XSRFInterceptor';
@@ -57,6 +56,11 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { User } from './types/user';
 import { EditableInputComponent } from './components/profile/editable-input/editable-input.component';
 import { UserEffects } from './effects/user.effects';
+import { SkillEditPageComponent } from './components/skill-edit-page/skill-edit-page.component';
+import { SkillBodyConstructorComponent } from './components/skill-edit-page/skill-body-constructor/skill-body-constructor.component';
+import { SkillHeadComponent } from './components/skill-edit-page/skill-head/skill-head.component';
+import { SkillHeadStatusBarComponent } from './components/skill-edit-page/skill-head/skill-head-status-bar/skill-head-status-bar.component';
+import { ContentTypeSelectorComponent } from './components/skill-edit-page/skill-body-constructor/content-type-selector/content-type-selector.component';
 
 export function initApp(
   store: Store<AppState>,
@@ -102,6 +106,11 @@ export function initApp(
     UserSkillsComponent,
     ProfileComponent,
     EditableInputComponent,
+    SkillEditPageComponent,
+    SkillBodyConstructorComponent,
+    SkillHeadComponent,
+    SkillHeadStatusBarComponent,
+    ContentTypeSelectorComponent,
   ],
   imports: [
     CommonModule,

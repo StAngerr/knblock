@@ -1,0 +1,17 @@
+.content-type-selector-panel {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateX(-130%);
+  background: #f5f5f5;
+
+  .content-type-icon {
+    color: #706f6f;
+
+    &:hover  {
+      color: blue;
+    }
+  }
+}

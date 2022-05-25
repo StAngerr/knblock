@@ -1,0 +1,26 @@
+.skill-body {
+  background: #f5f5f5;
+
+  .add-section-btn {
+    color: #9eceff;
+    background: #fff;
+    font-size: 30px;
+    transition: all .3s;
+    &:hover {
+      color: #fff;
+      background: #9eceff;
+    }
+  }
+
+  .new-section-placeholder {
+    border: 2px dashed #9eceff;
+  }
+
+  .cancel-add-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 20px;
+    transform: translate(100%, -100%);
+  }
+}

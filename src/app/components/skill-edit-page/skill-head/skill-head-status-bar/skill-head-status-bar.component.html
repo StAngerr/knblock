@@ -1,0 +1,16 @@
+<div class="flex justify-between">
+  <div class="tags-container flex">
+    <span *ngFor="let tag of tags">
+      <a mat-button href="#" >#{{tag}}</a>
+    </span>
+  </div>
+  <div class="rating-container">
+    <mat-icon fontSet="fas" fontIcon="fa-star"></mat-icon>
+    <mat-icon fontSet="fas" fontIcon="fa-star"></mat-icon>
+    <mat-icon fontSet="fas" fontIcon="fa-star"></mat-icon>
+    <mat-icon fontSet="fas" fontIcon="fa-star"></mat-icon>
+    <mat-icon fontSet="fas" fontIcon="fa-star"></mat-icon>
+    <span>{{rating}}</span>
+  </div>
+  <p>by: <b>{{author}} </b></p>
+</div>

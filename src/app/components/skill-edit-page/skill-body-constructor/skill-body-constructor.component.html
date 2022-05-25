@@ -1,0 +1,10 @@
+<div class="skill-body container shadow-lg mt-6 p-2 relative">
+  <button *ngIf="!isAddingNewSection" (click)="onAddNewSection()" class="add-section-btn w-2/3 mx-auto	rounded flex justify-center items-center h-40 ">
+    <mat-icon fontSet="fas" fontIcon="fa-plus"></mat-icon>
+  </button>
+
+  <section *ngIf="isAddingNewSection" class="new-section-placeholder w-full h-auto relative">
+    <app-content-type-selector></app-content-type-selector>
+    <mat-icon class="cancel-add-btn cursor-pointer" color="primary" fontSet="fas" fontIcon="fa-circle-xmark" (click)="cancelAddNewSection()"></mat-icon>
+  </section>
+</div>
